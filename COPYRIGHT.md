@@ -39,6 +39,7 @@ assets. The original icon and brand artwork under the following paths are
 separate works and are not licensed under the GPL:
 
 - Packaging/AppIconV2.icns
+- Packaging/AppIconPreviewGitHub.png
 - Packaging/AppIconPreviewInApp.png
 
 You may make technically necessary copies of these files when cloning this

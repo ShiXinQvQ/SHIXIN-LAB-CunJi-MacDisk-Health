@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Packaging/AppIconPreviewInApp.png" width="128" height="128" alt="SHIXIN LAB · 存迹 App icon">
+  <img src="Packaging/AppIconPreviewGitHub.png" width="128" height="128" alt="SHIXIN LAB · 存迹 App icon">
 </p>
 
 <h1 align="center">SHIXIN LAB · 「存迹」MacDisk Health</h1>
@@ -58,7 +58,7 @@ The current official release is `0.2.0` (build `6`).
 DMG SHA-256:
 
 ```text
-e21f9e48b4b2d9311ea8a9b1176e50e32ad42520d263c137a42d81307c91e588
+3a4ea06f0571d533c12eda52a3acbb6fd54f9258ae036f028ea0b9cde0301aa5
 ```
 
 Verify after downloading:
@@ -108,7 +108,7 @@ The Speed Test module is intentionally separate from SMART reads. It only create
 
 The Speed Test module does not write to `/dev/disk0`, external raw devices, or any raw `/dev/*` device. It does not use `dd`, shell, `diskutil`, `fsck`, mount/unmount, repair, erase, or format commands. Network volumes can be selected only as ordinary file-system speed-test targets; they are never treated as SMART-readable disks.
 
-The This Mac / hardware profile module uses fixed read-only system queries, including `/usr/sbin/system_profiler` JSON output and Darwin `sysctl` reads. It is not an arbitrary command runner.
+The “This Mac” hardware-profile module uses fixed read-only system queries, including `/usr/sbin/system_profiler` JSON output and Darwin `sysctl` reads. It is not an arbitrary command runner.
 
 ## Privacy
 
@@ -251,7 +251,7 @@ Bundled third-party components keep their own licenses. In particular,
 DMG SHA-256：
 
 ```text
-e21f9e48b4b2d9311ea8a9b1176e50e32ad42520d263c137a42d81307c91e588
+3a4ea06f0571d533c12eda52a3acbb6fd54f9258ae036f028ea0b9cde0301aa5
 ```
 
 下载后可在“终端”验证：
@@ -330,7 +330,7 @@ SMART 历史会在本机保存完整快照数据，方便后续查看。界面�
 - 许可证：GPL-2.0-or-later
 - 许可证、NOTICE 与对应源码：见 `Licenses/`
 
-`smartctl` 是上游开源组件，不属于 SHIXIN LAB 自有闭源组件。本 App 只通过固定只读参数白名单调用它。
+`smartctl` 是上游开源组件，不属于 SHIXIN LAB 自有代码。本 App 只通过固定只读参数白名单调用它。
 
 ## 从源码构建
 

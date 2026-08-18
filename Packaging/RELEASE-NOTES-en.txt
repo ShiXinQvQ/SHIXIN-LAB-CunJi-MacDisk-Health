@@ -13,6 +13,7 @@ Highlights
 - Sequential speed-test timing no longer includes buffer preparation, UI progress delivery, or durability confirmation in the throughput interval.
 - Tests recorded within the same minute no longer collapse into overlapping points, vertical spikes, or broken trend lines. Each real test receives its own ordered position while retaining actual date/time labels.
 - Key metrics now include consistent information buttons and explanations, with refinements to history filters, exports, and Settings layout.
+- Raw SMART JSON is redacted by default. JSON / CSV export shows an explicit warning because a user-exported report may contain device identity and health metadata.
 - Simplified Chinese, English, and Japanese UI resources are included. The release package also contains bilingual installation, copyright, and release documentation.
 - SHIXIN LAB-owned source code and documentation are published under GPL-3.0-or-later. Official names, logos, app icons, and brand assets remain protected under the separate trademark and brand policy.
 
