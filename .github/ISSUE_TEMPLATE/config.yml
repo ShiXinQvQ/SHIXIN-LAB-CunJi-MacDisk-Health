@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability / 安全漏洞
+    url: https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/security/policy
+    about: Please use the private security-reporting guidance instead of a public issue.
+  - name: Product page / 产品官网
+    url: https://shixinqvq.com/lab/macdisk/
+    about: Official product information and installation guidance.

@@ -1,0 +1,60 @@
+@APP_NAME@（@SHORT_VERSION@，build @BUILD_VERSION@）
+正式版安装说明
+
+一、版本身份
+
+这是 @SHORT_VERSION@ 正式发布包，用于接替 0.1.1 与内部 v2 测试包。
+
+App 名称：@APP_NAME@
+Bundle ID：@BUNDLE_ID@
+系统要求：macOS @MINIMUM_OS@ 或更高版本
+架构：@ARCHITECTURE@
+数据目录：~/Library/Application Support/@APP_SUPPORT_NAME@/
+缓存目录：~/Library/Caches/@APP_SUPPORT_NAME@/
+
+从内部 v2 升级时，App 首次启动会按记录 ID 将缺少的 SMART 快照与测速历史合并到正式数据目录；内部 v2 原始历史不会被删除或改写。
+
+二、安装与升级
+
+1. 打开 DMG。
+2. 将“@APP_NAME@.app”拖入“Applications / 应用程序”。
+3. 从“应用程序”打开正式 App，并在“设置关于”核对版本 @SHORT_VERSION@（build @BUILD_VERSION@）。
+4. 确认 App 正常运行且历史完整后，可将旧名称 App 或带“v2”后缀的测试 App 移到废纸篓；移除 App 本体不会自动删除历史数据。
+
+当前包使用 ad-hoc 本地签名，不含 Developer ID 签名与公证。如果 macOS 阻止打开，请在 Finder 中右键 App 选择“打开”；仍被拦截时，到“系统设置 > 隐私与安全性”选择“仍要打开”。
+
+三、支持范围
+
+- macOS @MINIMUM_OS@ 或更高版本，当前包面向 @ARCHITECTURE@。
+- 本地内置与外置 whole-disk 设备：只读读取 SMART；实际字段取决于硬盘与 USB / Thunderbolt 桥接器是否透传。
+- ATA/SATA、SCSI/SAS 与 NVMe：按协议显示可可靠解释的健康字段；无法读取不会被误判为硬盘故障。
+- SMB / NAS 等网络卷：只提供用户确认后的普通文件测速，不读取 SMART。
+
+四、隐私与安全边界
+
+- SMART 模块只执行固定白名单的只读 smartctl 请求。
+- 不格式化、不修复、不挂载、不卸载、不擦除，不写入 /dev/* 或 raw disk。
+- 速度测试仅在用户确认后，通过 Swift 普通文件 I/O 创建临时文件；完成或取消后自动清理。
+- App 不后台上传硬盘信息；序列号等设备标识默认隐藏。
+- 原始参数默认脱敏；显示完整标识或导出报告前请确认分享范围。
+
+五、卸载
+
+1. 将“@APP_NAME@.app”移到废纸篓。
+2. 如需保留历史记录，不要改动下面的数据目录。
+3. 只有在确认不再需要历史和测速记录时，才手动移除：
+
+   ~/Library/Application Support/@APP_SUPPORT_NAME@/
+   ~/Library/Caches/@APP_SUPPORT_NAME@/
+
+内部 v2 数据目录会保留为回退来源，不会被正式版自动删除。
+
+六、随包文档与校验
+
+DMG 根目录同时提供中英文安装说明、产品与版权说明、版本说明、SHIXIN LAB GPL-3.0 许可证与品牌政策，以及第三方许可目录。Licenses/Source 内含与内置 smartctl 7.5 对应的上游源码包；与本版本对应的 SHIXIN LAB 源码可从官方 GitHub Release 页面获取。
+
+包目录中的 SHA256SUMS.txt 只使用同目录相对文件名。进入该目录后运行：
+
+   shasum -a 256 -c SHA256SUMS.txt
+
+全部显示 OK 后再安装。

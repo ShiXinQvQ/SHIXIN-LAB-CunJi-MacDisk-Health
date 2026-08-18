@@ -1,0 +1,26 @@
+SHIXIN LAB · “CunJi” MacDisk Health
+@SHORT_VERSION@ (build @BUILD_VERSION@) Release Notes
+
+Release date: @RELEASE_DATE@
+
+This is the formal CunJi 0.2.0 release, replacing 0.1.1 Beta and the internal v2 test build.
+
+Highlights
+
+- The formal app identity is now “@APP_NAME@” while preserving Bundle ID @BUNDLE_ID@.
+- The published data namespace remains intact. On first launch, missing SMART snapshots and speed-test records from internal v2 are merged safely without deleting or rewriting the v2 source data.
+- Internal and local external disk discovery, protocol-specific SMART presentation, read-completeness reporting, and read-only validation have been strengthened.
+- Sequential speed-test timing no longer includes buffer preparation, UI progress delivery, or durability confirmation in the throughput interval.
+- Tests recorded within the same minute no longer collapse into overlapping points, vertical spikes, or broken trend lines. Each real test receives its own ordered position while retaining actual date/time labels.
+- Key metrics now include consistent information buttons and explanations, with refinements to history filters, exports, and Settings layout.
+- Simplified Chinese, English, and Japanese UI resources are included. The release package also contains bilingual installation, copyright, and release documentation.
+- SHIXIN LAB-owned source code and documentation are published under GPL-3.0-or-later. Official names, logos, app icons, and brand assets remain protected under the separate trademark and brand policy.
+
+Known Boundaries
+
+- The formal release reads core SMART / NVMe data through direct mode. No Helper installation is required for normal use.
+- External SMART depends on pass-through support from the enclosure or bridge. An unavailable read does not mean the disk has failed.
+- Speed-test results vary with test size, free space, cache state, temperature, and concurrent work such as rendering or file copies. Use consistent conditions for comparisons.
+- This package targets Apple Silicon and requires macOS @MINIMUM_OS@ or later.
+
+Read the Install Guide before installation. See Product and Copyright Information and the Licenses directory for full product boundaries and third-party terms.

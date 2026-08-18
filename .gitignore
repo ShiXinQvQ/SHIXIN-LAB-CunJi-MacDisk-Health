@@ -1,0 +1,49 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# SwiftPM / build
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcuserstate
+
+# Local app/distribution artifacts
+Dist/
+*.app/
+*.dmg
+*.zip
+
+# QA and large generated design artifacts
+QA/screenshots/
+ScreenShot/
+Packaging/IconWork/
+Logo/*
+
+# Local handoff / backups / working notes
+Backups/
+文档/
+HANDOFF_FOR_CODEX_NEXT*.md
+
+# Local private data and exports
+snapshots.json
+speed-tests.json
+speed-test-incomplete.json
+*SMART*.json
+*SMART*.csv
+*SpeedTest*.json
+*SpeedTest*.csv
+
+# Signing / credentials
+.env
+.env.*
+*.p12
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+*.key
+*.pem

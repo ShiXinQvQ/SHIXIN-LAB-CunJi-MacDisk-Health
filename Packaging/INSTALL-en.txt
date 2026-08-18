@@ -1,0 +1,60 @@
+@APP_NAME@ (@SHORT_VERSION@, build @BUILD_VERSION@)
+Release Install Guide
+
+1. Release Identity
+
+This is the formal @SHORT_VERSION@ package, replacing the 0.1.1 release and the internal v2 test build.
+
+App name: @APP_NAME@
+Bundle ID: @BUNDLE_ID@
+System requirement: macOS @MINIMUM_OS@ or later
+Architecture: @ARCHITECTURE@
+Data: ~/Library/Application Support/@APP_SUPPORT_NAME@/
+Cache: ~/Library/Caches/@APP_SUPPORT_NAME@/
+
+When upgrading from internal v2, the first launch merges missing SMART snapshots and speed-test results into the release data directory by record ID. The original internal-v2 history is neither deleted nor modified.
+
+2. Install Or Upgrade
+
+1. Open the DMG.
+2. Drag "@APP_NAME@.app" into Applications.
+3. Open the release app from Applications and verify @SHORT_VERSION@ (build @BUILD_VERSION@) in Settings & About.
+4. After confirming that the app works and its history is complete, move any old-name app or app with a "v2" suffix to Trash. Removing the app bundle does not automatically remove history data.
+
+This package uses a local ad-hoc signature and is not Developer ID signed or notarized. If macOS blocks it, right-click the app in Finder and choose Open. If needed, use Open Anyway in System Settings > Privacy & Security.
+
+3. Supported Targets
+
+- macOS @MINIMUM_OS@ or later; the current package targets @ARCHITECTURE@.
+- Internal and external local whole-disk devices: read-only SMART access, subject to the disk and USB / Thunderbolt bridge exposing SMART.
+- ATA/SATA, SCSI/SAS, and NVMe: the UI uses protocol-specific fields that can be interpreted reliably. An unavailable read is not reported as disk failure.
+- SMB, NAS, and other network volumes: user-confirmed ordinary-file speed tests only; no SMART access.
+
+4. Privacy And Safety
+
+- The SMART module only runs fixed, allowlisted, read-only smartctl requests.
+- The app does not format, repair, mount, unmount, erase, or write /dev/* or any raw disk.
+- Speed tests use Swift ordinary-file I/O only after confirmation and clean up their temporary files after completion or cancellation.
+- Disk information is not uploaded in the background. Serial numbers and other identifiers are hidden by default.
+- Raw parameters are redacted by default. Review the sharing scope before revealing identifiers or exporting a report.
+
+5. Uninstall
+
+1. Move "@APP_NAME@.app" to Trash.
+2. To retain history, leave the data directory below unchanged.
+3. Only after confirming the history and speed-test records are no longer needed, remove:
+
+   ~/Library/Application Support/@APP_SUPPORT_NAME@/
+   ~/Library/Caches/@APP_SUPPORT_NAME@/
+
+The internal-v2 data directory remains available as a rollback source and is never removed automatically by the release app.
+
+6. Included Documents And Verification
+
+The DMG root includes Chinese and English install guides, product/copyright information, release notes, the SHIXIN LAB GPL-3.0 license and brand policy, and a third-party license directory. Licenses/Source contains the upstream source archive corresponding to the bundled smartctl 7.5 binary. The versioned SHIXIN LAB source corresponding to this release is available from the official GitHub Release page.
+
+SHA256SUMS.txt uses file names relative to its package directory. In that directory, run:
+
+   shasum -a 256 -c SHA256SUMS.txt
+
+Install only after every entry reports OK.

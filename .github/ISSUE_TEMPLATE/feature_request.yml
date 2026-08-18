@@ -1,0 +1,31 @@
+name: Feature request / 功能建议
+description: Propose a focused improvement that preserves read-only and privacy boundaries.
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        CunJi keeps SMART access read-only and speed tests limited to user-confirmed ordinary files. Requests that require raw-device writes, repair, erase, formatting, or hidden data upload will not be accepted.
+
+        「存迹」坚持 SMART 严格只读，测速只使用用户确认的普通文件。涉及原始设备写入、修复、擦除、格式化或隐蔽上传数据的请求不会被接受。
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve / 希望解决的问题
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed experience / 建议方案
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and privacy impact / 安全与隐私影响
+      description: Explain how read-only, local-first, and identifier-redaction boundaries remain intact.
+    validations:
+      required: true

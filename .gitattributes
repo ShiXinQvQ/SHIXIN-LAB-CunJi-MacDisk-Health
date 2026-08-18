@@ -1,0 +1,11 @@
+*.md text eol=lf
+*.swift text eol=lf
+*.sh text eol=lf
+*.plist text eol=lf
+*.strings text eol=lf
+*.yml text eol=lf
+*.txt text eol=lf
+*.png binary
+*.icns binary
+*.tar.gz binary
+Sources/ShixinDiskHealth/Resources/Tools/smartctl binary

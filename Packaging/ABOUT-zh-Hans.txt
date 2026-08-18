@@ -1,0 +1,41 @@
+SHIXIN LAB · 「存迹」MacDisk Health
+产品与版权说明
+
+一、产品身份
+
+产品名称：@APP_NAME@
+英文名称：SHIXIN LAB · 「存迹」MacDisk Health
+版本：@SHORT_VERSION@（build @BUILD_VERSION@）
+Bundle ID：@BUNDLE_ID@
+系统要求：macOS @MINIMUM_OS@ 或更高版本
+架构：@ARCHITECTURE@
+
+「存迹」是 SHIXIN LAB 推出的本地优先 macOS 原生硬盘健康工具，用于读取内置与本地外置硬盘的 SMART / NVMe 健康数据、保存本机历史快照、查看趋势，以及在用户明确确认后执行普通文件顺序读写测速。
+
+二、隐私与安全
+
+- 健康读取只使用固定白名单的只读 smartctl 参数。
+- 不格式化、不修复、不挂载、不卸载、不擦除，也不写入任何原始磁盘设备。
+- 速度测试只创建普通临时文件，结束或取消后会自动清理。
+- App 不在后台上传硬盘信息；序列号等设备标识默认隐藏。
+- 外置硬盘能否读取 SMART 取决于硬盘、转接芯片与 macOS 是否透传相关信息。
+
+三、版权与许可
+
+版权所有 © 2026 李泽宇（失心 / ShiXinQvQ），SHIXIN LAB 创作者。
+
+SHIXIN LAB 自有源码与文档是采用 GNU GPL-3.0-or-later 的自由与开源软件。任何人均可在许可证范围内使用、研究、修改和再分发；对外发布修改版时，必须保留适用许可证并提供对应源码。GPL 完整文本、版权范围与版本化源码均发布在官方仓库及对应 Release 页面。
+
+SHIXIN LAB 与「存迹 / CunJi」名称、Logo、App 图标、Bundle ID 和其他用于识别官方来源的品牌素材不随 GPL 授权。修改版或非官方版本必须使用明显不同的名称、图标和品牌识别，不得暗示获得官方背书。未经修改的官方正式版本可以在完整保留版权、许可证、源码与完整性声明的前提下原样再分发。
+
+本产品包含第三方开源组件 smartmontools / smartctl 7.5。该组件版权归其贡献者所有，适用 GNU General Public License v2 或更高版本。许可证、归属说明及与本包二进制对应的源码归档见 DMG 内的 Licenses 目录。其第三方许可与 SHIXIN LAB 自有代码采用的 GPL-3.0-or-later 分别保持有效。
+
+本软件按现状提供。在适用法律允许的最大范围内，SHIXIN LAB 不对特定用途适用性、数据恢复结果或因误读检测信息而产生的间接损失作出保证。重要数据请始终保持独立备份；本软件不是数据恢复或硬盘维修工具。
+
+四、官方信息
+
+产品官网：https://shixinqvq.com/lab/macdisk/
+SHIXIN LAB：https://shixinqvq.com/
+源码仓库：https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health
+
+请只从 SHIXIN LAB 官网或上述官方 GitHub 仓库获取安装包，并使用同目录或发布页提供的 SHA-256 校验值核对文件。

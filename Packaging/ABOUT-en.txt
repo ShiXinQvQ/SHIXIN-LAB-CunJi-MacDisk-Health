@@ -1,0 +1,41 @@
+SHIXIN LAB · “CunJi” MacDisk Health
+Product and Copyright Information
+
+1. Product Identity
+
+Product name: @APP_NAME@
+English name: SHIXIN LAB · “CunJi” MacDisk Health
+Version: @SHORT_VERSION@ (build @BUILD_VERSION@)
+Bundle ID: @BUNDLE_ID@
+System requirement: macOS @MINIMUM_OS@ or later
+Architecture: @ARCHITECTURE@
+
+CunJi is a local-first native macOS disk-health utility from SHIXIN LAB. It reads SMART / NVMe health data from internal and local external disks, stores local snapshots, presents trends, and runs ordinary-file sequential read/write tests only after explicit user confirmation.
+
+2. Privacy and Safety
+
+- Health reads use only fixed, allowlisted, read-only smartctl arguments.
+- The app never formats, repairs, mounts, unmounts, erases, or writes any raw disk device.
+- Speed tests create ordinary temporary files and clean them up after completion or cancellation.
+- Disk information is not uploaded in the background. Device identifiers such as serial numbers are hidden by default.
+- External SMART availability depends on the disk, bridge chipset, and macOS pass-through support.
+
+3. Copyright and Licensing
+
+Copyright © 2026 Zeyu Li (Shixin / ShiXinQvQ), creator of SHIXIN LAB.
+
+SHIXIN LAB-owned source code and documentation are free and open-source software licensed under GNU GPL-3.0-or-later. The license permits use, study, modification, and redistribution under its terms; conveyed modified versions must preserve the applicable license and provide corresponding source. The complete license, copyright scope, and source are published in the official repository and its versioned Release page.
+
+The SHIXIN LAB and CunJi names, logos, app icons, Bundle ID, and other source-identifying brand assets are not granted under the GPL. Modified or unofficial builds must use a clearly different name, icon, and identity and must not imply official endorsement. Exact unmodified official releases may be redistributed with all copyright, license, source, and integrity notices intact.
+
+This product includes the third-party open-source component smartmontools / smartctl 7.5. Copyright remains with its contributors, and the component is licensed under the GNU General Public License version 2 or later. The Licenses directory in this DMG contains the license, attribution, and the source archive corresponding to the bundled binary. Third-party terms remain independent from the GPL-3.0-or-later license applied to SHIXIN LAB-owned code.
+
+The software is provided as-is. To the maximum extent permitted by applicable law, SHIXIN LAB makes no warranty of fitness for a particular purpose, successful data recovery, or indirect loss caused by misinterpreting diagnostic information. Always keep independent backups of important data. This product is not a data-recovery or disk-repair tool.
+
+4. Official Information
+
+Product page: https://shixinqvq.com/lab/macdisk/
+SHIXIN LAB: https://shixinqvq.com/
+Source repository: https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health
+
+Obtain packages only from the SHIXIN LAB website or the official GitHub repository above, and verify the file against the SHA-256 value published alongside the download.
