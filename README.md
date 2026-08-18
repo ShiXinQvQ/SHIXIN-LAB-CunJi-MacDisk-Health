@@ -5,8 +5,8 @@
 <h1 align="center">SHIXIN LAB · 「存迹」MacDisk Health</h1>
 
 <p align="center">
-  本地优先的 macOS SMART / NVMe 硬盘健康工具<br>
-  A local-first SMART / NVMe disk-health utility for macOS
+  让 Mac 的存储健康与长期趋势，一目了然。<br>
+  Your Mac’s storage health and history, clearly in view.
 </p>
 
 <p align="center">
