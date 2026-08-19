@@ -24,8 +24,10 @@ repair, formatting, recovery, or remote-monitoring service.
   health evaluation, snapshots, exports, and speed-test implementation.
 - `ShixinDiskHealthSelfTest`: deterministic safety, parsing, migration,
   redaction, process, and speed-test checks.
-- `ShixinDiskHealthPrivilegedHelper`: an inactive development skeleton. It is
-  not embedded, installed, registered, or called by the `0.2.0` release.
+- `ShixinDiskHealthPrivilegedHelper`: an inactive, fail-closed development
+  skeleton. It rejects every XPC connection and is not embedded, installed,
+  registered, or called by the `0.2.0` release. Any future activation requires
+  a separate signed-client authentication and release review.
 - `smartmontools / smartctl 7.5`: third-party GPL-2.0-or-later component used
   only through the fixed read-only policy described below.
 
@@ -33,8 +35,9 @@ repair, formatting, recovery, or remote-monitoring service.
 - `ShixinDiskHealthCore`：硬盘枚举、固定命令执行、解析、健康判断、快照、导出
   与测速实现。
 - `ShixinDiskHealthSelfTest`：确定性的安全、解析、迁移、脱敏、进程与测速自检。
-- `ShixinDiskHealthPrivilegedHelper`：未启用的开发骨架；`0.2.0` 不内置、不安装、
-  不注册，也不会调用它。
+- `ShixinDiskHealthPrivilegedHelper`：未启用且默认拒绝连接的开发骨架；`0.2.0`
+  不内置、不安装、不注册，也不会调用它。未来若要启用，必须另行完成已签名调用方
+  身份验证与发布审查。
 - `smartmontools / smartctl 7.5`：第三方 GPL-2.0-or-later 组件，仅通过下述固定
   只读策略调用。
 
@@ -130,10 +133,19 @@ integrity, and SHA-256 comparison. Hardware-specific SMART availability remains
 dependent on macOS and the storage bridge and must be tested on the target
 hardware.
 
+Every pull request and push to `main` also runs deterministic repository,
+localization, bundled-component, self-test, and Apple Silicon build checks in
+GitHub Actions. These automated checks protect reproducible invariants; they do
+not replace real-Mac hardware and visual acceptance testing.
+
 发布门禁包括确定性自检、将警告视为错误的 Release 构建、shell 与 plist 校验、
 App 身份检查、严格代码结构验证、DMG 校验、挂载内容核查、ZIP 完整性和 SHA-256
 比对。特定硬件能否提供 SMART 仍取决于 macOS 与硬盘桥接器，需要在目标硬件上
 实际验证。
+
+每个 Pull Request 以及对 `main` 的推送还会在 GitHub Actions 中执行确定性的仓库、
+本地化、内置组件、自检与 Apple Silicon 构建检查。自动检查用于守住可重复验证的
+不变量，但不能替代真实 Mac 硬件测试与界面验收。
 
 ## Licensing / 许可
 

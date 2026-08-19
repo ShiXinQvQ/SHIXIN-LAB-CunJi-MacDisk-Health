@@ -13,6 +13,7 @@ local-only data handling, and identifier redaction remain intact.
 
 ## Validation / 验证
 
+- [ ] `Scripts/validate-public-repo.sh` passed
 - [ ] Release self-test passed
 - [ ] Release build passed with warnings as errors
 - [ ] Shell scripts and plist/localization files were validated when affected

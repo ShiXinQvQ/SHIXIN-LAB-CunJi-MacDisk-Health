@@ -23,6 +23,7 @@
 
 <p align="center">
   <img alt="Release" src="https://img.shields.io/github/v/release/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health?display_name=tag&sort=semver">
+  <img alt="Repository quality" src="https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/actions/workflows/quality.yml/badge.svg?branch=main">
   <img alt="License GPL-3.0-or-later" src="https://img.shields.io/badge/source-GPL--3.0--or--later-2ea44f">
   <img alt="macOS 15 or later" src="https://img.shields.io/badge/macOS-15%2B-111111">
   <img alt="Apple Silicon" src="https://img.shields.io/badge/Apple%20Silicon-arm64-555555">
@@ -154,6 +155,12 @@ Run the self tests:
 ```bash
 swift run ShixinDiskHealthSelfTest
 swift run ShixinDiskHealthSelfTest --live
+```
+
+Run the deterministic public-repository checks:
+
+```bash
+Scripts/validate-public-repo.sh
 ```
 
 Run the app during development:

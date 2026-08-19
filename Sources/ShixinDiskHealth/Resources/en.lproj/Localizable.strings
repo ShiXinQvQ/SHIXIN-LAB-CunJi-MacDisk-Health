@@ -236,12 +236,9 @@
 "高级：手动 smartctl 路径" = "Advanced: Manual smartctl Path";
 "高级权限" = "Advanced Privileges";
 "正式 Helper 暂未开放安装" = "Formal Helper installation is not yet available";
-"当前 Beta 已通过 direct mode 读取核心 SMART / NVMe 数据。正式 Helper 属于可选增强权限通道，将在 Developer ID 签名、公证与安装/卸载流程完成后开放。" = "The current Beta reads core SMART / NVMe data through direct mode. The formal Helper is an optional enhanced-privilege channel and will be opened after Developer ID signing, notarization, and the install/uninstall flow are complete.";
 "Helper 状态" = "Helper Status";
-"未安装（当前无需安装）" = "Not installed (not required now)";
 "注册 Helper" = "Register Helper";
 "取消注册" = "Unregister";
-"正式 Helper 尚未作为当前 Beta 下载包的一部分开放；当前按钮保留为后续公证版本的权限入口。" = "The formal Helper is not part of the current Beta download package. These controls are reserved for a later notarized release.";
 "关于" = "About";
 "副标题" = "Subtitle";
 "Bundle ID" = "Bundle ID";
@@ -561,7 +558,6 @@
 "smartmontools / smartctl 的版本。不同版本对 NVMe、ATA/SATA、SCSI 字段和 JSON 输出的支持可能略有差异。" = "The smartmontools / smartctl version. Support for NVMe, ATA/SATA, SCSI fields, and JSON output can vary slightly by version.";
 "区分硬盘健康和读取范围。本 App 会优先确保当前协议的核心 SMART 字段可用，再把附加日志失败放入诊断层。" = "Distinguishes disk health from read coverage. The app first verifies the core SMART fields for the current protocol, then treats supplemental-log failures as diagnostics.";
 "诊断中展示的只读命令。代码层只允许固定 smartctl 参数读取枚举到的 whole-disk /dev/diskN，不允许 shell、格式化、修复、挂载或写盘类命令。" = "The read-only command shown in diagnostics. The code only permits fixed smartctl arguments against enumerated whole-disk /dev/diskN nodes, never shell, format, repair, mount, or disk-write commands.";
-"当前内部 v2 已通过 direct mode 读取核心 SMART 数据。正式 Helper 属于可选增强权限通道，将在 Developer ID 签名、公证与安装/卸载流程完成后开放。" = "The internal v2 currently reads core SMART data through direct mode. The formal Helper is an optional enhanced-privilege channel to be enabled after Developer ID signing, notarization, and install/uninstall flows are complete.";
 "导出的历史记录可能包含完整硬盘序列号、硬盘型号、固件版本、SMART 原始数据等设备信息。请谨慎保存和分享。" = "Exported history may contain the full disk serial number, model, firmware, and raw SMART data. Store and share it carefully.";
 "可用" = "Available";
 "未注册" = "Not Registered";
@@ -657,10 +653,10 @@
 "请重新连接硬盘或选择当前列表中的其他外置硬盘。" = "Reconnect the disk or select another external disk in the current list.";
 "外置硬盘检测已取消" = "External Disk Check Cancelled";
 "所选外置硬盘的只读检测任务已停止。" = "The read-only check for the selected external disk has stopped.";
-"v1 测速历史导入失败" = "v1 Speed-Test History Import Failed";
-"v1 原始记录没有被修改；请检查 v2 数据目录权限后重试。" = "The original v1 records were not modified. Check the v2 data-directory permissions and try again.";
-"v1 SMART 历史导入失败" = "v1 SMART History Import Failed";
-"v1 原始记录没有被修改；v2 会继续读取自己的历史记录。" = "The original v1 records were not modified. v2 will continue loading its own history.";
+"旧版测速历史导入失败" = "Legacy Speed-Test History Import Failed";
+"旧版原始记录没有被修改；请检查当前数据目录权限后重试。" = "The original legacy records were not modified. Check the current data-directory permissions and try again.";
+"旧版 SMART 历史导入失败" = "Legacy SMART History Import Failed";
+"旧版原始记录没有被修改；当前版本会继续读取自己的历史记录。" = "The original legacy records were not modified. This version will continue loading its own history.";
 "外盘检测" = "External Check";
 "SSD 控制器累计经历上电初始化的次数。关机、重启或某些深度电源状态可能使其增加；数值本身不代表故障，应结合通电时间和变化趋势观察。" = "The cumulative number of times the SSD controller has gone through power-on initialization. Shutdowns, restarts, or some deep power states may increase it. The value alone does not indicate a fault; review it with power-on hours and its trend.";
 "设备未收到正常关机通知便失去供电的累计次数，例如强制关机、突然断电或系统崩溃。偶发不等于硬盘损坏；持续增加时应检查供电和异常关机原因。" = "The cumulative number of times the device lost power without receiving a normal shutdown notification, such as a forced shutdown, sudden power loss, or system crash. An occasional event does not by itself mean disk damage; investigate power or shutdown issues if it keeps increasing.";

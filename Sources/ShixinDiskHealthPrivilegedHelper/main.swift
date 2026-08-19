@@ -19,10 +19,11 @@ final class DiskHealthPrivilegedHelper: NSObject, DiskHealthPrivilegedHelperProt
     }
 
     func listener(_ listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
-        connection.exportedInterface = NSXPCInterface(with: DiskHealthPrivilegedHelperProtocol.self)
-        connection.exportedObject = self
-        connection.resume()
-        return true
+        // The Helper is a dormant development skeleton and is intentionally
+        // fail-closed. A future signed release must add and review caller
+        // authentication before this service can accept any connection.
+        connection.invalidate()
+        return false
     }
 
     func readDisk0SMART(reply: @escaping (Data?, Int32, String?) -> Void) {
