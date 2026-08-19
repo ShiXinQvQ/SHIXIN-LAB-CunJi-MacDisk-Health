@@ -58,12 +58,23 @@ GPL 贡献授权不包含对 SHIXIN LAB 官方名称、Logo、App 图标或品�
 Run at least:
 
 ```bash
+Scripts/validate-public-repo.sh
 swift run -c release ShixinDiskHealthSelfTest
-swift build -c release --product ShixinDiskHealth -Xswiftc -warnings-as-errors
+swift build --triple arm64-apple-macosx15.0 -c release \
+  --product ShixinDiskHealth -Xswiftc -warnings-as-errors
 bash -n Scripts/*.sh
 plutil -lint Packaging/Info.plist
 git diff --check
 ```
+
+GitHub Actions repeats the deterministic repository, self-test, and build
+checks for every pull request and push to `main`. Changes involving real disks,
+macOS integration, or interface behavior still require focused validation on a
+real Mac.
+
+GitHub Actions 会为每个 Pull Request 和对 `main` 的推送重复执行确定性的仓库、
+自检与构建检查。涉及真实硬盘、macOS 集成或界面行为的修改，仍须在真实 Mac 上
+完成针对性验证。
 
 Changes to real SMART reads, disk identity, migration, speed measurement,
 privacy export, packaging, or UI layout require focused tests and an explanation

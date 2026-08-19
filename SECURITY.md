@@ -18,16 +18,18 @@ in a public issue.
 请勿在公开 Issue 中发布可直接利用的攻击步骤、硬盘序列号、原始 SMART 导出、
 Provisioning UDID、平台 UUID、完整本机路径或其他隐私设备信息。
 
-Use GitHub private vulnerability reporting when it is available for this
-repository. If it is unavailable, contact SHIXIN LAB through the official site
+Use this repository's enabled GitHub private vulnerability reporting flow. If
+GitHub is temporarily unavailable, contact SHIXIN LAB through the official site
 first and provide only a minimal, redacted summary until a private channel is
 agreed:
 
-若仓库已开放 GitHub 私密漏洞报告，请优先使用；若暂未开放，请先通过 SHIXIN
-LAB 官网联系，并仅提交经过脱敏的最小摘要，待双方确认私密沟通渠道后再提供
-复现细节：
+本仓库已启用 GitHub 私密漏洞报告，请优先使用；若 GitHub 暂时不可用，请先通过
+SHIXIN LAB 官网联系，并仅提交经过脱敏的最小摘要，待双方确认私密沟通渠道后再
+提供复现细节：
 
-- https://shixinqvq.com/
+- Private vulnerability report / 私密漏洞报告:
+  [Open the private report form](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/security/advisories/new)
+- Official website / 官方网站: https://shixinqvq.com/
 
 Useful reports include the affected version/build, macOS version, Mac model,
 expected and actual behavior, minimal reproduction steps, and whether the issue

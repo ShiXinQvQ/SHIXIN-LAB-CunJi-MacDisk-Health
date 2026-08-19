@@ -1,0 +1,57 @@
+name: Public repository quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: quality
+    runs-on: macos-15
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Record toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+          uname -a
+
+      - name: Validate repository and release inputs
+        run: Scripts/validate-public-repo.sh
+
+      - name: Run deterministic self-tests
+        run: swift run -c release ShixinDiskHealthSelfTest
+
+      - name: Build the Apple Silicon app with warnings as errors
+        run: >-
+          swift build
+          --scratch-path .build-arm64
+          --triple arm64-apple-macosx15.0
+          -c release
+          --product ShixinDiskHealth
+          -Xswiftc -warnings-as-errors
+
+      - name: Compile the dormant Helper with warnings as errors
+        run: >-
+          swift build
+          --scratch-path .build-arm64
+          --triple arm64-apple-macosx15.0
+          -c release
+          --product ShixinDiskHealthPrivilegedHelper
+          -Xswiftc -warnings-as-errors

@@ -1,5 +1,22 @@
 # Changelog / 更新日志
 
+## Unreleased / 尚未发布
+
+- Added a pinned macOS GitHub Actions quality gate, monthly Actions dependency
+  updates, deterministic public-repository validation, and a bilingual community
+  Code of Conduct.
+- Made the dormant privileged Helper fail closed: it now rejects every XPC
+  connection and remains excluded from the distributed app.
+- Removed obsolete Beta/internal-v2 localization entries and completed English,
+  Simplified Chinese, and Japanese translations for current legacy-history
+  import errors.
+
+- 新增固定版本的 macOS GitHub Actions 质量门禁、每月 Actions 依赖更新、确定性
+  公开仓库校验，以及双语社区行为准则。
+- 将未启用的特权 Helper 改为默认拒绝所有 XPC 连接，并继续排除在发行 App 之外。
+- 清理已废弃的 Beta/内部 v2 本地化条目，并补齐当前旧版历史导入错误的英文、
+  简体中文与日文翻译。
+
 ## 0.2.0 (build 6) — 2026-08-18
 
 - Promoted the final app identity to `SHIXIN LAB · 「存迹」` while preserving
