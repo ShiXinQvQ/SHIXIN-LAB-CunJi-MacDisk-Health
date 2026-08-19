@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export LC_ALL=C
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
@@ -18,7 +19,7 @@ fail() {
 }
 
 extract_localization_keys() {
-  sed -n 's/^[[:space:]]*"\([^"]*\)"[[:space:]]*=.*/\1/p' "$1" | LC_ALL=C sort
+  sed -n 's/^[[:space:]]*"\([^"]*\)"[[:space:]]*=.*/\1/p' "$1" | sort
 }
 
 for command_name in bash comm file git grep lipo otool plutil sed shasum tar vtool; do
