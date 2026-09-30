@@ -43,8 +43,11 @@ public enum HealthEvaluator {
             reasons.append(reason)
         }
 
-        if metrics.smartPassed == false {
+        if metrics.smartPassed == false || hasExitBit(smartctlExitStatus, bit: 3) {
             raise(.risk, "SMART 整体状态未通过。")
+        }
+        if hasExitBit(smartctlExitStatus, bit: 4), (metrics.ataFailingAttributeCount ?? 0) == 0 {
+            raise(.risk, "smartctl 状态位显示预故障属性已达到厂商阈值。")
         }
         switch metrics.effectiveProtocolFamily {
         case .nvme:

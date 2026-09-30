@@ -2,10 +2,35 @@ import AppKit
 import ShixinDiskHealthCore
 import SwiftUI
 
+// A targeted material correction; future systems retain the original rendering path.
+enum LabAppearanceProfile {
+    static func usesStableSurfaces(majorVersion: Int) -> Bool { majorVersion == 27 }
+    static var usesStableSurfaces: Bool {
+        usesStableSurfaces(majorVersion: ProcessInfo.processInfo.operatingSystemVersion.majorVersion)
+    }
+}
+
+private struct LabStableSurface: View {
+    let cornerRadius: CGFloat
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .fill(Color(red: 41 / 255, green: 43 / 255, blue: 46 / 255))
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(.white.opacity(contrast == .increased ? 0.4 : 0.12), lineWidth: 1)
+            }
+    }
+}
+
 extension View {
     @ViewBuilder
     func labGlassCard(padding: CGFloat = 18, cornerRadius: CGFloat = 18) -> some View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+        if LabAppearanceProfile.usesStableSurfaces {
+            self.padding(padding).background { LabStableSurface(cornerRadius: cornerRadius) }
+        } else {
 #if canImport(SwiftUI, _version: 7.0)
         if #available(macOS 26.0, *) {
             self
@@ -33,6 +58,7 @@ extension View {
                 shape.stroke(.white.opacity(0.08), lineWidth: 1)
             }
 #endif
+        }
     }
 
     func accessibilityReduceMotionTransaction() -> some View {

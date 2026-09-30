@@ -162,17 +162,6 @@ enum AppLanguageController {
 enum AppRestarter {
     @MainActor
     static func restartApp() {
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.activates = true
-        configuration.createsNewApplicationInstance = true
-        NSWorkspace.shared.openApplication(at: Bundle.main.bundleURL, configuration: configuration) { _, error in
-            guard error == nil else {
-                NSSound.beep()
-                return
-            }
-            Task { @MainActor in
-                NSApp.terminate(nil)
-            }
-        }
+        AppDelegate.current?.restartAfterDiskTasksFinish()
     }
 }

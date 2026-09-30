@@ -56,11 +56,25 @@ struct RootView: View {
 
 struct SidebarView: View {
     @Binding var selection: AppSection?
+    @Environment(\.controlActiveState) private var controlActiveState
 
     var body: some View {
         List(AppSection.allCases, selection: $selection) { section in
-            Label(L10n.t(section.rawValue), systemImage: section.symbolName)
-                .tag(section)
+            if LabAppearanceProfile.usesStableSurfaces {
+                Label(L10n.t(section.rawValue), systemImage: section.symbolName)
+                    .listItemTint(selection == section ? .fixed(.white) : .monochrome)
+                    .listRowBackground(
+                        selection == section && controlActiveState != .inactive
+                            ? RoundedRectangle(cornerRadius: 8)
+                                .fill(Color(nsColor: .selectedContentBackgroundColor))
+                                .padding(.horizontal, 10)
+                            : nil
+                    )
+                    .tag(section)
+            } else {
+                Label(L10n.t(section.rawValue), systemImage: section.symbolName)
+                    .tag(section)
+            }
         }
         .navigationSplitViewColumnWidth(min: 220, ideal: 250, max: 300)
         .safeAreaInset(edge: .bottom) {

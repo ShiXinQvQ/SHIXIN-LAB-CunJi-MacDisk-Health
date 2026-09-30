@@ -13,6 +13,9 @@ let package = Package(
         .executable(name: "ShixinDiskHealthPrivilegedHelper", targets: ["ShixinDiskHealthPrivilegedHelper"]),
         .executable(name: "ShixinDiskHealthSelfTest", targets: ["ShixinDiskHealthSelfTest"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.10.0")
+    ],
     targets: [
         .target(
             name: "ShixinDiskHealthCore",
@@ -20,11 +23,12 @@ let package = Package(
         ),
         .executableTarget(
             name: "ShixinDiskHealth",
-            dependencies: ["ShixinDiskHealthCore"],
+            dependencies: ["ShixinDiskHealthCore", .product(name: "Sparkle", package: "Sparkle")],
             path: "Sources/ShixinDiskHealth",
             resources: [
                 .copy("Resources")
-            ]
+            ],
+            linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"])]
         ),
         .executableTarget(
             name: "ShixinDiskHealthPrivilegedHelper",
@@ -35,6 +39,11 @@ let package = Package(
             name: "ShixinDiskHealthSelfTest",
             dependencies: ["ShixinDiskHealthCore"],
             path: "Sources/ShixinDiskHealthSelfTest"
+        ),
+        .testTarget(
+            name: "ShixinDiskHealthUpdateTests",
+            dependencies: ["ShixinDiskHealth", "ShixinDiskHealthCore"],
+            path: "Tests/ShixinDiskHealthUpdateTests"
         )
     ]
 )

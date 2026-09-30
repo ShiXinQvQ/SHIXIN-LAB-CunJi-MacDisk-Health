@@ -182,7 +182,11 @@ final class SpeedTestAppState: ObservableObject {
 
     func startSpeedTest() {
         guard !isRunning else { return }
-        guard confirmSpeedTestStart() else { return }
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        guard confirmSpeedTestStart(), !UpdateActivityGate.shared.isTerminating else {
+            UpdateActivityGate.shared.endActivity(lease)
+            return
+        }
 
         lastFailure = nil
         lastCleanupWarning = nil
@@ -201,6 +205,7 @@ final class SpeedTestAppState: ObservableObject {
         let version = appVersion
 
         currentTask = Task {
+            defer { UpdateActivityGate.shared.endActivity(lease) }
             await runSpeedTests(
                 size: size,
                 mode: mode,
@@ -222,6 +227,8 @@ final class SpeedTestAppState: ObservableObject {
     }
 
     func deleteResult(_ result: SpeedTestResult) {
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         do {
             results = try store.delete(id: result.id)
             alignSelectedHistoryGroup()
@@ -238,6 +245,8 @@ final class SpeedTestAppState: ObservableObject {
     }
 
     func exportResults(format: ExportFormat) {
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         guard confirmSpeedTestExport() else { return }
         let panel = NSSavePanel()
         panel.title = L10n.t("导出速度测试历史")

@@ -51,7 +51,7 @@ APP_SUPPORT_NAME="${SHIXIN_DISK_HEALTH_APP_SUPPORT_NAME:-$DEFAULT_APP_SUPPORT_NA
 APP_ICON_BASENAME="$DEFAULT_APP_ICON_BASENAME"
 SHORT_VERSION="${SHIXIN_DISK_HEALTH_SHORT_VERSION:-$DEFAULT_SHORT_VERSION}"
 BUNDLE_VERSION="${SHIXIN_DISK_HEALTH_BUNDLE_VERSION:-$DEFAULT_BUNDLE_VERSION}"
-APP_PARENT_DIR="${SHIXIN_DISK_HEALTH_APP_PARENT_DIR:-$HOME/Applications}"
+APP_PARENT_DIR="${SHIXIN_DISK_HEALTH_APP_PARENT_DIR:-$ROOT_DIR/Dist/Development/$VARIANT}"
 TARGET_APP_DIR="${SHIXIN_DISK_HEALTH_APP_DIR:-$APP_PARENT_DIR/$APP_NAME.app}"
 
 version_is_at_most() {
@@ -123,85 +123,26 @@ else
   [[ "$(basename "$TARGET_APP_DIR")" == "$PUBLISHED_APP_NAME.app" ]] || { printf '%s\n' "main builds must use the published App filename." >&2; exit 64; }
 fi
 
-STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/shixin-disk-health-${VARIANT}.XXXXXX")"
+mkdir -p "$ROOT_DIR/Backups/build-stages"
+STAGE_ROOT="$(mktemp -d "$ROOT_DIR/Backups/build-stages/${VARIANT}.XXXXXX")"
 APP_DIR="$STAGE_ROOT/$APP_NAME.app"
 BIN_DIR="$APP_DIR/Contents/MacOS"
 RES_DIR="$APP_DIR/Contents/Resources"
 DAEMON_DIR="$APP_DIR/Contents/Library/LaunchDaemons"
 
-cleanup() {
-  rm -rf "$STAGE_ROOT"
-}
-trap cleanup EXIT
-
-SDK_PROBE_SOURCE="$STAGE_ROOT/sdk-probe.swift"
-SDK_PROBE_CACHE="$STAGE_ROOT/sdk-probe-module-cache"
-printf '%s\n' 'import Foundation' > "$SDK_PROBE_SOURCE"
-mkdir -p "$SDK_PROBE_CACHE"
-
-case "$(uname -m)" in
-  arm64) SDK_PROBE_TARGET="arm64-apple-macosx15.0" ;;
-  x86_64) SDK_PROBE_TARGET="x86_64-apple-macosx15.0" ;;
-  *)
-    printf '%s\n' "Unsupported build architecture: $(uname -m)" >&2
-    exit 69
-    ;;
-esac
-
-sdk_is_compatible() {
-  local candidate="$1"
-  [[ -d "$candidate" ]] || return 1
-  swiftc \
-    -sdk "$candidate" \
-    -target "$SDK_PROBE_TARGET" \
-    -module-cache-path "$SDK_PROBE_CACHE" \
-    -typecheck "$SDK_PROBE_SOURCE" \
-    >/dev/null 2>&1
-}
-
-SDK_OVERRIDE="${SHIXIN_DISK_HEALTH_SDK:-}"
-if [[ -n "$SDK_OVERRIDE" ]]; then
-  if ! sdk_is_compatible "$SDK_OVERRIDE"; then
-    printf '%s\n' "The requested SDK is missing or incompatible with the active Swift compiler: $SDK_OVERRIDE" >&2
-    exit 69
-  fi
-  SELECTED_SDK="$SDK_OVERRIDE"
-else
-  DEFAULT_SDK="$(xcrun --show-sdk-path)"
-  if sdk_is_compatible "$DEFAULT_SDK"; then
-    SELECTED_SDK="$DEFAULT_SDK"
-  else
-    SELECTED_SDK=""
-    for candidate in \
-      /Library/Developer/CommandLineTools/SDKs/MacOSX15*.sdk \
-      /Applications/Xcode*.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15*.sdk; do
-      if sdk_is_compatible "$candidate"; then
-        SELECTED_SDK="$candidate"
-        break
-      fi
-    done
-    if [[ -z "$SELECTED_SDK" ]]; then
-      printf '%s\n' "The default macOS SDK is incompatible with the active Swift compiler, and no compatible macOS 15 SDK was found." >&2
-      printf '%s\n' "Default SDK: $DEFAULT_SDK" >&2
-      printf '%s\n' "Set SHIXIN_DISK_HEALTH_SDK to a compatible SDK path after repairing Command Line Tools." >&2
-      exit 69
-    fi
-    printf '%s\n' "Default SDK is incompatible with the active Swift compiler; using verified fallback: $SELECTED_SDK" >&2
-  fi
-fi
-printf '%s\n' "Using verified macOS SDK: $SELECTED_SDK" >&2
-
-export SWIFTPM_MODULECACHE_OVERRIDE="${SWIFTPM_MODULECACHE_OVERRIDE:-$STAGE_ROOT/swiftpm-module-cache}"
-export CLANG_MODULE_CACHE_PATH="${CLANG_MODULE_CACHE_PATH:-$STAGE_ROOT/clang-module-cache}"
-mkdir -p "$SWIFTPM_MODULECACHE_OVERRIDE" "$CLANG_MODULE_CACHE_PATH"
-SWIFT_BUILD_ARGUMENTS=(-c release --sdk "$SELECTED_SDK")
+# Keep staging recoverable; never erase a failed build or silently select an older SDK.
+SELECTED_SDK="${SHIXIN_DISK_HEALTH_SDK:-/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk}"
+[[ -f "$SELECTED_SDK/SDKSettings.plist" ]] || { printf '%s\n' "Required SDK is unavailable: $SELECTED_SDK" >&2; exit 69; }
+export SHIXIN_BUILD_SDK_PATH="$SELECTED_SDK"
+SCRATCH_PATH="${SHIXIN_DISK_HEALTH_SCRATCH_PATH:-$ROOT_DIR/Backups/swift-build}"
+SWIFT_BUILD_ARGUMENTS=(-c release --jobs "${SHIXIN_BUILD_JOBS:-2}" --scratch-path "$SCRATCH_PATH")
 
 cd "$ROOT_DIR"
-swift build "${SWIFT_BUILD_ARGUMENTS[@]}" --product ShixinDiskHealth
+"$ROOT_DIR/Scripts/swift-build.sh" build "${SWIFT_BUILD_ARGUMENTS[@]}" --product ShixinDiskHealth
 if [[ "$INCLUDE_HELPER" == "YES" ]]; then
-  swift build "${SWIFT_BUILD_ARGUMENTS[@]}" --product ShixinDiskHealthPrivilegedHelper
+  "$ROOT_DIR/Scripts/swift-build.sh" build "${SWIFT_BUILD_ARGUMENTS[@]}" --product ShixinDiskHealthPrivilegedHelper
 fi
-BUILD_BIN_DIR="$(swift build "${SWIFT_BUILD_ARGUMENTS[@]}" --show-bin-path)"
+BUILD_BIN_DIR="$("$ROOT_DIR/Scripts/swift-build.sh" build "${SWIFT_BUILD_ARGUMENTS[@]}" --show-bin-path)"
 
 mkdir -p "$BIN_DIR" "$RES_DIR/Tools"
 cp "$BUILD_BIN_DIR/ShixinDiskHealth" "$BIN_DIR/ShixinDiskHealth"
@@ -277,6 +218,8 @@ if [[ -f "Licenses/smartmontools-COPYING.txt" ]]; then
   fi
 fi
 
+python3 "$ROOT_DIR/Scripts/embed-sparkle.py" --scratch "$SCRATCH_PATH" --app "$APP_DIR"
+
 if command -v codesign >/dev/null 2>&1; then
   if [[ -f "$DAEMON_DIR/ShixinDiskHealthPrivilegedHelper" ]]; then
     codesign --force --sign - "$DAEMON_DIR/ShixinDiskHealthPrivilegedHelper"
@@ -287,6 +230,13 @@ fi
 ACTUAL_BUNDLE_ID="$(plutil -extract CFBundleIdentifier raw -o - "$APP_DIR/Contents/Info.plist")"
 [[ "$ACTUAL_BUNDLE_ID" == "$BUNDLE_ID" ]] || { printf '%s\n' "Built Bundle ID validation failed." >&2; exit 1; }
 
+if [[ "$VARIANT" == "main" ]]; then
+  python3 "$ROOT_DIR/Scripts/verify-updater-bundle.py" "$APP_DIR" ${SHIXIN_REQUIRE_UPDATE_KEY:+--require-key}
+fi
+if [[ -e "$TARGET_APP_DIR" && "${SHIXIN_DISK_HEALTH_ALLOW_REPLACE:-NO}" != "YES" ]]; then
+  printf 'Refusing to replace existing App without SHIXIN_DISK_HEALTH_ALLOW_REPLACE=YES: %s\n' "$TARGET_APP_DIR" >&2
+  exit 64
+fi
 mkdir -p "$(dirname "$TARGET_APP_DIR")"
 backup_installed_app() {
   local source_app="$1"

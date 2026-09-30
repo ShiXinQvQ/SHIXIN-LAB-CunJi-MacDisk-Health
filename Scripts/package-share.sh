@@ -51,7 +51,7 @@ fi
 STAMP="$(date +%Y%m%d-%H%M%S)"
 OUT_DIR="$ROOT_DIR/Dist/$VERSION-$STAMP"
 STAGE_DIR="$OUT_DIR/stage"
-APP_DIR="${SHIXIN_DISK_HEALTH_APP_DIR:-$HOME/Applications/$APP_NAME.app}"
+APP_DIR="${SHIXIN_DISK_HEALTH_APP_DIR:-$ROOT_DIR/Dist/Development/$VARIANT/$APP_NAME.app}"
 DMG_NAME="SHIXIN-LAB-CunJi-MacDisk-Health-$VERSION-$STAMP.dmg"
 ZIP_NAME="SHIXIN-LAB-CunJi-MacDisk-Health-$VERSION-$STAMP.zip"
 DMG_PATH="$OUT_DIR/$DMG_NAME"
@@ -64,7 +64,6 @@ MOUNT_POINT=""
 cleanup_release_mount() {
   if [[ -n "$MOUNT_POINT" ]]; then
     hdiutil detach "$MOUNT_POINT" >/dev/null 2>&1 || true
-    rmdir "$MOUNT_POINT" >/dev/null 2>&1 || true
   fi
 }
 trap cleanup_release_mount EXIT
@@ -96,10 +95,12 @@ ACTUAL_SOURCE_SHA256="$(shasum -a 256 "$SMARTMONTOOLS_SOURCE_PATH" | awk '{ prin
 tar -tzf "$SMARTMONTOOLS_SOURCE_PATH" >/dev/null
 
 cd "$ROOT_DIR"
-if [[ "$VARIANT" == "main" ]]; then
-  SHIXIN_DISK_HEALTH_VARIANT="$VARIANT" SHIXIN_DISK_HEALTH_ALLOW_MAIN_BUILD=YES "$ROOT_DIR/Scripts/build-app.sh" >/dev/null
+if [[ "${SHIXIN_DISK_HEALTH_SKIP_BUILD:-NO}" == "YES" ]]; then
+  [[ -n "${SHIXIN_DISK_HEALTH_APP_DIR:-}" ]] || { printf '%s\n' "Packaging an existing App requires an explicit SHIXIN_DISK_HEALTH_APP_DIR." >&2; exit 64; }
+elif [[ "$VARIANT" == "main" ]]; then
+  SHIXIN_DISK_HEALTH_APP_DIR="$APP_DIR" SHIXIN_DISK_HEALTH_VARIANT="$VARIANT" SHIXIN_DISK_HEALTH_ALLOW_MAIN_BUILD=YES "$ROOT_DIR/Scripts/build-app.sh" >/dev/null
 else
-  SHIXIN_DISK_HEALTH_VARIANT="$VARIANT" "$ROOT_DIR/Scripts/build-app.sh" >/dev/null
+  SHIXIN_DISK_HEALTH_APP_DIR="$APP_DIR" SHIXIN_DISK_HEALTH_VARIANT="$VARIANT" "$ROOT_DIR/Scripts/build-app.sh" >/dev/null
 fi
 
 APP_PLIST="$APP_DIR/Contents/Info.plist"
@@ -123,6 +124,7 @@ if [[ "$VARIANT" == "main" ]]; then
   [[ "$ACTUAL_BUNDLE_ID" == "com.shixinqvq.shixinlab.diskhealth" ]] || { printf '%s\n' "Main Bundle ID validation failed." >&2; exit 65; }
   [[ "$ACTUAL_SHORT_VERSION" == "$SHIXIN_DISK_HEALTH_SHORT_VERSION" ]] || { printf '%s\n' "Main short-version validation failed." >&2; exit 65; }
   [[ "$ACTUAL_BUILD_VERSION" == "$SHIXIN_DISK_HEALTH_BUNDLE_VERSION" ]] || { printf '%s\n' "Main build-number validation failed." >&2; exit 65; }
+  python3 "$ROOT_DIR/Scripts/verify-updater-bundle.py" "$APP_DIR" --require-key
 fi
 
 mkdir -p "$STAGE_DIR"
@@ -226,11 +228,10 @@ hdiutil create \
   "$DMG_PATH" >/dev/null
 hdiutil verify "$DMG_PATH" >/dev/null
 
-MOUNT_POINT="$(mktemp -d "${TMPDIR:-/tmp}/shixin-cunji-dmg.XXXXXX")"
+MOUNT_POINT="$(mktemp -d "$OUT_DIR/mount.XXXXXX")"
 hdiutil attach -readonly -nobrowse -mountpoint "$MOUNT_POINT" "$DMG_PATH" >/dev/null
 validate_release_tree "$MOUNT_POINT"
 hdiutil detach "$MOUNT_POINT" >/dev/null
-rmdir "$MOUNT_POINT"
 MOUNT_POINT=""
 
 (

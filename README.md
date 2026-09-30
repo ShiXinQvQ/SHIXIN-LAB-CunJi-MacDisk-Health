@@ -41,7 +41,7 @@ It is an official SHIXIN LAB project by Shixin (`失心` / `ShiXinQvQ`). SHIXIN 
 - Chinese display name: `SHIXIN LAB · 「存迹」`
 - Subtitle: `MacDisk Health · SMART / NVMe`
 - Published app Bundle ID: `com.shixinqvq.shixinlab.diskhealth`
-- Current release: `0.2.0` (build `6`)
+- Current release: `0.3.0` (build `7`)
 - Minimum macOS: `15.0+`
 - Architecture: Apple Silicon / `arm64`
 
@@ -49,23 +49,23 @@ It is an official SHIXIN LAB project by Shixin (`失心` / `ShiXinQvQ`). SHIXIN 
 
 ## Download
 
-The current official release is `0.2.0` (build `6`).
+The current official release is `0.3.0` (build `7`).
 
-- [Download the official v0.2.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.2.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.2.0.dmg)
-- [Release notes and verification files](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.2.0)
+- [Download the official v0.3.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
+- [Release notes and verification files](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.3.0)
 - [SHA-256 checksum manifest](SHA256SUMS.txt)
 - [Product page](https://shixinqvq.com/lab/macdisk/)
 
 DMG SHA-256:
 
 ```text
-3a4ea06f0571d533c12eda52a3acbb6fd54f9258ae036f028ea0b9cde0301aa5
+acadde679a1dc40e0f27f1b96eeedd2ee212dd274e633da784b76e38e07312e4
 ```
 
 Verify after downloading:
 
 ```bash
-shasum -a 256 SHIXIN-LAB-CunJi-MacDisk-Health-v0.2.0.dmg
+shasum -a 256 SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg
 ```
 
 Use only the official product page or this repository's Releases page. A GitHub
@@ -74,6 +74,10 @@ download the `.dmg` asset above.
 
 The current release package uses a local ad-hoc signature. macOS may show an
 "unverified developer" warning on first launch.
+
+## Updates in 0.3.0
+
+macOS 27 receives a localized appearance correction. Other systems retain their original appearance branch; macOS 26 visual testing remains unverified. The shared Sparkle updater checks manually by default and uses signed feeds and archives. Version 0.2.0 users must install 0.3.0 manually once before future in-app upgrades. See [release verification](Docs/RELEASE-0.3.0.md).
 
 ## What It Does
 
@@ -169,29 +173,31 @@ Run the app during development:
 swift run ShixinDiskHealth
 ```
 
-Build the final 0.2.0 main `.app`:
+Build the final 0.3.0 main `.app`:
 
 ```bash
 SHIXIN_DISK_HEALTH_VARIANT=main \
 SHIXIN_DISK_HEALTH_ALLOW_MAIN_BUILD=YES \
-SHIXIN_DISK_HEALTH_SHORT_VERSION=0.2.0 \
-SHIXIN_DISK_HEALTH_BUNDLE_VERSION=6 \
+SHIXIN_DISK_HEALTH_SHORT_VERSION=0.3.0 \
+SHIXIN_DISK_HEALTH_BUNDLE_VERSION=7 \
 SHIXIN_DISK_HEALTH_INCLUDE_HELPER=NO \
 Scripts/build-app.sh
 ```
+
+Build output defaults to `Dist/Development/`; it does not replace an installed app. Release builds use the real macOS 26.5 SDK (override its location with `SHIXIN_BUILD_SDK_PATH` if needed). Never reuse the official signing identity for an unofficial distribution.
 
 The script still defaults to the isolated legacy-v2 identity as a safety guard.
 It refuses to build the published main identity unless explicit main-build
 authorization, short-version, and bundle-version variables are all supplied.
 
-Generate the final 0.2.0 share package:
+Generate the final 0.3.0 share package:
 
 ```bash
 SHIXIN_DISK_HEALTH_VARIANT=main \
 SHIXIN_DISK_HEALTH_ALLOW_MAIN_PACKAGE=YES \
-SHIXIN_DISK_HEALTH_SHORT_VERSION=0.2.0 \
-SHIXIN_DISK_HEALTH_BUNDLE_VERSION=6 \
-SHIXIN_DISK_HEALTH_PACKAGE_VERSION=v0.2.0 \
+SHIXIN_DISK_HEALTH_SHORT_VERSION=0.3.0 \
+SHIXIN_DISK_HEALTH_BUNDLE_VERSION=7 \
+SHIXIN_DISK_HEALTH_PACKAGE_VERSION=v0.3.0 \
 Scripts/package-share.sh
 ```
 
@@ -206,7 +212,7 @@ boundary, see [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md).
 
 ## Distribution Status
 
-Version `0.2.0` (build `6`) is the current formal release. GitHub Releases is the
+Version `0.3.0` (build `7`) is the current formal release. GitHub Releases is the
 versioned binary archive and checksum source; the SHIXIN LAB product page is the
 official product introduction and download entry. The local package script
 builds and validates release artifacts but never publishes them automatically.
@@ -242,36 +248,36 @@ Bundled third-party components keep their own licenses. In particular,
 - 中文展示名：`SHIXIN LAB · 「存迹」`
 - 副标题：`MacDisk Health · SMART / NVMe`
 - 已发布 App Bundle ID：`com.shixinqvq.shixinlab.diskhealth`
-- 当前发布版本：`0.2.0`（build `6`）
+- 当前发布版本：`0.3.0`（build `7`）
 - 最低系统：`macOS 15.0+`
 - 当前架构：Apple Silicon / `arm64`
 
 ## 下载
 
-当前正式版本为 `0.2.0`（build `6`）。
+当前正式版本为 `0.3.0`（build `7`）。
 
-- [下载官方 v0.2.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.2.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.2.0.dmg)
-- [查看版本说明与校验文件](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.2.0)
+- [下载官方 v0.3.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
+- [查看版本说明与校验文件](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.3.0)
 - [SHA-256 校验清单](SHA256SUMS.txt)
 - [访问产品官网](https://shixinqvq.com/lab/macdisk/)
 
 DMG SHA-256：
 
 ```text
-3a4ea06f0571d533c12eda52a3acbb6fd54f9258ae036f028ea0b9cde0301aa5
+acadde679a1dc40e0f27f1b96eeedd2ee212dd274e633da784b76e38e07312e4
 ```
 
 下载后可在“终端”验证：
 
 ```bash
-shasum -a 256 SHIXIN-LAB-CunJi-MacDisk-Health-v0.2.0.dmg
+shasum -a 256 SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg
 ```
 
 请只使用本仓库 Releases 页面或 SHIXIN LAB 官方产品页。GitHub 自动提供的
 Source code 压缩包是源码，不是可以直接安装的 App；普通用户应下载上面的
 `.dmg` 文件。
 
-当前 0.2.0 正式包使用 ad-hoc 本地签名。首次打开时 macOS 可能提示“无法验证开发者”。
+当前 0.3.0 正式包使用 ad-hoc 本地签名。首次打开时 macOS 可能提示“无法验证开发者”。
 
 ## 功能
 
@@ -328,7 +334,7 @@ SMART 历史会在本机保存完整快照数据，方便后续查看。界面�
 
 ## 开源组件
 
-当前 0.2.0 正式包内置 `smartmontools / smartctl`：
+当前 0.3.0 正式包内置 `smartmontools / smartctl`：
 
 - 组件：`smartmontools / smartctl`
 - 捆绑版本：`smartctl 7.5`
@@ -361,13 +367,13 @@ swift run ShixinDiskHealthSelfTest --live
 swift run ShixinDiskHealth
 ```
 
-构建最终 0.2.0 主 App：
+构建最终 0.3.0 主 App：
 
 ```bash
 SHIXIN_DISK_HEALTH_VARIANT=main \
 SHIXIN_DISK_HEALTH_ALLOW_MAIN_BUILD=YES \
-SHIXIN_DISK_HEALTH_SHORT_VERSION=0.2.0 \
-SHIXIN_DISK_HEALTH_BUNDLE_VERSION=6 \
+SHIXIN_DISK_HEALTH_SHORT_VERSION=0.3.0 \
+SHIXIN_DISK_HEALTH_BUNDLE_VERSION=7 \
 SHIXIN_DISK_HEALTH_INCLUDE_HELPER=NO \
 Scripts/build-app.sh
 ```
@@ -375,14 +381,14 @@ Scripts/build-app.sh
 脚本仍以隔离的旧 v2 身份作为安全默认值。只有同时显式提供主身份授权、
 短版本号和构建号，才会构建正式身份。
 
-生成最终 0.2.0 分享包：
+生成最终 0.3.0 分享包：
 
 ```bash
 SHIXIN_DISK_HEALTH_VARIANT=main \
 SHIXIN_DISK_HEALTH_ALLOW_MAIN_PACKAGE=YES \
-SHIXIN_DISK_HEALTH_SHORT_VERSION=0.2.0 \
-SHIXIN_DISK_HEALTH_BUNDLE_VERSION=6 \
-SHIXIN_DISK_HEALTH_PACKAGE_VERSION=v0.2.0 \
+SHIXIN_DISK_HEALTH_SHORT_VERSION=0.3.0 \
+SHIXIN_DISK_HEALTH_BUNDLE_VERSION=7 \
+SHIXIN_DISK_HEALTH_PACKAGE_VERSION=v0.3.0 \
 Scripts/package-share.sh
 ```
 
@@ -394,9 +400,13 @@ Scripts/package-share.sh
 组件结构、数据流、正式身份与未启用 Helper 的边界说明见
 [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md)。
 
+## 0.3.0 更新与验证
+
+只在 macOS 27 修正卡片和侧栏外观，其他系统保留原分支；尚未执行 macOS 26 真机视觉验收。新增更新器跨系统共用，默认手动检查，并校验更新清单和安装包签名。旧 0.2.0 需要手动安装一次才能使用后续应用内更新。详见 [验收说明](Docs/RELEASE-0.3.0.md)。构建输出默认为项目内 `Dist/Development/`，不会替换已安装 App。
+
 ## 分发状态
 
-`0.2.0`（build `6`）是当前正式版本。GitHub Releases 用于保存可下载的版本化
+`0.3.0`（build `7`）是当前正式版本。GitHub Releases 用于保存可下载的版本化
 安装包与校验值；SHIXIN LAB 产品页负责正式产品介绍与下载入口。本机打包脚本
 只负责生成和验证产物，不会自动上传或公开发布。
 

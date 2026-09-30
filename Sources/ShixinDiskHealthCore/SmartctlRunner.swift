@@ -356,7 +356,7 @@ public actor SmartctlRunner {
         }
     }
 
-    private func combine(
+    func combine(
         coreSnapshot: SmartSnapshot,
         coreRequest: SmartctlCommandRequest,
         coreOutput: ProcessOutput,
