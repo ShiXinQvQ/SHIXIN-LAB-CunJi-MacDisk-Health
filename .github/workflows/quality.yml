@@ -38,7 +38,13 @@ jobs:
         run: Scripts/validate-public-repo.sh
 
       - name: Run deterministic self-tests
-        run: swift run -c release ShixinDiskHealthSelfTest
+        run: |
+          swift build --jobs 2 -c release --product ShixinDiskHealthSelfTest
+          binary="$(swift build -c release --show-bin-path)/ShixinDiskHealthSelfTest"
+          file "$binary"
+          codesign --force --sign - "$binary"
+          codesign --verify --strict --verbose=2 "$binary"
+          "$binary"
 
       - name: Test updater coordination and SMART health regression
         run: swift test --jobs 2
