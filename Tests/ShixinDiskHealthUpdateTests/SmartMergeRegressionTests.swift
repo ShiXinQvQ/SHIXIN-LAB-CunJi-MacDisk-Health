@@ -47,7 +47,7 @@ final class SmartMergeRegressionTests: XCTestCase, @unchecked Sendable {
         "num_err_log_entries": 0
       }
     }
-    
+
     """
 
     private func combine(extendedStatus: Int32, extendedPassed: Bool = true) async throws -> SmartSnapshot {

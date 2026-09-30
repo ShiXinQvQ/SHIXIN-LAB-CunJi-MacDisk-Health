@@ -6,6 +6,7 @@ Icon?
 
 # SwiftPM / build
 .build/
+.build-*/
 .swiftpm/
 DerivedData/
 *.xcodeproj/project.xcworkspace/xcuserdata/
