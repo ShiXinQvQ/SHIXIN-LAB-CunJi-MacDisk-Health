@@ -663,3 +663,32 @@
 "NVMe 控制器处理 I/O 命令的累计忙碌时间，单位为分钟。它反映长期工作负载，不是本次任务耗时；0 也可能表示累计不足 1 分钟或设备未提供有效记录。" = "The cumulative time, in minutes, that the NVMe controller was busy processing I/O commands. It reflects long-term workload, not the duration of the current task. A value of 0 may also mean less than one accumulated minute or no valid record from the device.";
 "NVMe 控制器检测到且未能恢复的数据完整性错误累计数，例如不可校正 ECC、CRC 校验失败或 LBA 标签不匹配。0 是理想状态；非 0 或持续增加时应及时备份并进一步检查。" = "The cumulative number of data-integrity errors detected and not recovered by the NVMe controller, such as uncorrectable ECC, a failed CRC check, or an LBA tag mismatch. Zero is ideal; back up promptly and investigate if the value is nonzero or keeps increasing.";
 "控制器错误信息日志条目的累计数，可能包含可恢复或历史错误，不等同于介质损坏。应结合错误类型、介质错误计数和变化趋势判断；附加日志不可读时只能看到累计数，无法查看明细。" = "The cumulative number of controller Error Information Log entries. It can include recoverable or historical errors and does not by itself mean media damage. Interpret it with error type, media-error count, and trend; when the supplemental log is unavailable, only the count is visible and details cannot be read.";
+
+/* In-app updates */
+"软件更新" = "Software Updates";
+"当前版本" = "Current version";
+"更新源版本" = "Latest available version";
+"上次检查" = "Last checked";
+"尚未检查" = "Not checked yet";
+"未取得版本信息" = "Version information unavailable";
+"检查更新…" = "Check for Updates…";
+"自动检查更新" = "Check for updates automatically";
+"默认关闭。开启后约每日检查一次；下载和安装仍由你决定。检查会连接更新服务器，不上传硬盘信息或历史记录。" = "Off by default. When enabled, checks about once a day. You choose when to download and install. Checks contact the update server without uploading disk information or history.";
+"当前任务尚未结束，请在检测、测速、保存或导出完成后再更新。" = "Wait until detection, speed testing, saving or export finishes before updating.";
+"此构建尚未配置正式更新源与签名，请使用已发布的安装包。" = "This build has no release update feed and signing key. Use a published installer.";
+"正在检查更新…" = "Checking for updates…";
+"发现可用更新，请在更新窗口中继续。" = "An update is available. Continue in the update window.";
+"当前已是最新可用版本。" = "You are running the latest available version.";
+"本地构建比当前更新源中的版本更新，不会降级。" = "This local build is newer than the update feed. It will not be downgraded.";
+"更新源中的新版本不适用于当前系统或硬件。" = "The available update is incompatible with this system or hardware.";
+"当前更新源未提供适用版本。" = "No compatible version is available from this update feed.";
+"已取消更新。" = "Update cancelled.";
+"正在下载更新，请在更新窗口查看进度或取消。" = "Downloading the update. View progress or cancel in the update window.";
+"更新已准备好，请在更新窗口选择安装并重启。" = "The update is ready. Choose Install and Relaunch in the update window.";
+"正在安装更新并等待 App 退出。" = "Installing the update and waiting for the app to quit.";
+"更新清单无法解析或验证，请稍后重试。" = "The update feed could not be parsed or verified. Try again later.";
+"更新包未通过真实性验证，已停止安装。" = "The update failed authenticity verification. Installation was stopped.";
+"更新进行中" = "Update in progress";
+"请先完成或取消软件更新，再开始检测、测速、保存或导出。" = "Finish or cancel the update before starting detection, speed testing, saving or export.";
+
+"smartctl 状态位显示预故障属性已达到厂商阈值。" = "smartctl reports a prefailure attribute at or below its manufacturer threshold.";

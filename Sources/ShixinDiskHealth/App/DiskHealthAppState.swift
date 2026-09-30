@@ -207,6 +207,8 @@ final class DiskHealthAppState: ObservableObject {
 
     private func runDetection(scope: DetectionScope) async {
         guard !isDetecting else { return }
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         let requestedSelection = selectedDiskID(for: scope)
         let requestedTarget = requestedSelection.flatMap { id in
             diskInventory.smartTargets.first { $0.id == id }
@@ -414,6 +416,11 @@ final class DiskHealthAppState: ObservableObject {
         return true
     }
 
+    func cancelForAppTermination() {
+        cancelActiveDetection()
+        hardwareProfileTask?.cancel()
+    }
+
     func cancelDetection() {
         guard activeDetectionScope == .internalDisk else { return }
         cancelActiveDetection()
@@ -478,6 +485,8 @@ final class DiskHealthAppState: ObservableObject {
     }
 
     private func saveSnapshot(_ snapshot: SmartSnapshot, failureScope: DetectionScope) -> Bool {
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return false }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         do {
             snapshots = try store.append(snapshot)
             selectedHistoryIdentity = snapshot.effectiveDiskIdentity.rawValue
@@ -562,6 +571,8 @@ final class DiskHealthAppState: ObservableObject {
     }
 
     func deleteSnapshot(_ snapshot: SmartSnapshot) {
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         do {
             snapshots = try store.delete(id: snapshot.id)
             historyFailure = nil
@@ -621,6 +632,8 @@ final class DiskHealthAppState: ObservableObject {
     }
 
     func exportSnapshots(format: ExportFormat) {
+        guard let lease = UpdateActivityGate.shared.beginUserActivity() else { return }
+        defer { UpdateActivityGate.shared.endActivity(lease) }
         guard confirmDeviceInfoExport() else { return }
         let panel = NSSavePanel()
         panel.title = L10n.t("导出健康报告")

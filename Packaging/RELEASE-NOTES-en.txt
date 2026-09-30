@@ -3,9 +3,20 @@ SHIXIN LAB · “CunJi” MacDisk Health
 
 Release date: @RELEASE_DATE@
 
-This is the formal CunJi 0.2.0 release, replacing 0.1.1 Beta and the internal v2 test build.
+This is CunJi 0.3.0, replacing 0.2.0 while preserving the published identity and user-data directories.
 
-Highlights
+New in 0.3.0
+
+- Corrects ordinary card surfaces and sidebar appearance only on macOS 27, preserving window sizes, layout, icons, and the original appearance branches on other systems.
+- Adds Sparkle in-app updates: check manually, review notes, download, install, and restart. Automatic checks are off by default.
+- Includes the Japanese resources missing from the installed 0.2.0 app and validates all three languages, the update framework, and signing configuration.
+- Fixes supplemental SMART health-failure status being masked by otherwise successful core data.
+- Coordinates updates with disk checks, speed tests, saves, and exports; quitting waits for cancellation and cleanup.
+- An isolated simulated upgrade and snapshot retention were tested on macOS 27. macOS 26 hardware visual testing was not performed.
+
+Version 0.2.0 has no updater: install this release manually once to enable future in-app updates. Update requests do not upload disk information or history.
+
+Continuing 0.2.0 Features
 
 - The formal app identity is now “@APP_NAME@” while preserving Bundle ID @BUNDLE_ID@.
 - The published data namespace remains intact. On first launch, missing SMART snapshots and speed-test records from internal v2 are merged safely without deleting or rewriting the v2 source data.

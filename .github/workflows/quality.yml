@@ -40,6 +40,9 @@ jobs:
       - name: Run deterministic self-tests
         run: swift run -c release ShixinDiskHealthSelfTest
 
+      - name: Test updater coordination and SMART health regression
+        run: swift test --jobs 2
+
       - name: Build the Apple Silicon app with warnings as errors
         run: >-
           swift build

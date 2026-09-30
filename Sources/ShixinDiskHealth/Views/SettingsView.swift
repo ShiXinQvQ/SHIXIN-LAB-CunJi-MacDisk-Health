@@ -2,7 +2,7 @@ import AppKit
 import ShixinDiskHealthCore
 import SwiftUI
 
-private extension View {
+extension View {
     func settingsCard(padding: CGFloat = 18, cornerRadius: CGFloat = 18) -> some View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
         return self
@@ -24,6 +24,7 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 16) {
                 PrivacySettingsCard()
                 LanguageSettingsCard()
+                UpdateSettingsCard()
                 SmartctlSourceCard()
                 AdvancedHelperCard()
                 AboutCard()
