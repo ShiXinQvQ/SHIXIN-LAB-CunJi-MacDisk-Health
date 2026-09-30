@@ -1,6 +1,18 @@
 # Changelog / 更新日志
 
-## Unreleased / 尚未发布
+## 0.3.0 (build 7) — 2026-09-30
+
+- Corrects card and sidebar appearance only on macOS 27, preserving the existing appearance branches elsewhere.
+- Adds signed Sparkle in-app updates, manual checks by default, and coordination with disk tasks and app termination.
+- Packages all three language resources and preserves supplemental SMART health-failure status.
+- Version 0.2.0 requires one manual installation. macOS 26 visual testing remains unverified; see [verification details](Docs/RELEASE-0.3.0.md).
+
+- 仅在 macOS 27 修正卡片和侧栏，保留其他系统原有外观分支。
+- 新增签名校验的应用内更新，默认手动检查；安装与退出等待硬盘任务结束。
+- 补齐三种语言资源，修正附加 SMART 健康失败状态被掩盖的问题。
+- 旧 0.2.0 需手动安装一次。macOS 26 真机视觉未执行，详见验收说明。
+
+### Repository hardening included / 同时包含的仓库加固
 
 - Added a pinned macOS GitHub Actions quality gate, monthly Actions dependency
   updates, deterministic public-repository validation, and a bilingual community
