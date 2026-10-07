@@ -1,6 +1,6 @@
 # Changelog / 更新日志
 
-## 0.3.0 (build 7) — 2026-09-30
+## 0.3.0 Beta (build 7) — 2026-09-30
 
 - Corrects card and sidebar appearance only on macOS 27, preserving the existing appearance branches elsewhere.
 - Adds signed Sparkle in-app updates, manual checks by default, and coordination with disk tasks and app termination.

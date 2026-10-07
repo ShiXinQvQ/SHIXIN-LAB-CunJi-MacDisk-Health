@@ -1,4 +1,4 @@
-# CunJi 0.3.0 (build 7)
+# CunJi 0.3.0 Beta (build 7)
 
 ## Changes
 
