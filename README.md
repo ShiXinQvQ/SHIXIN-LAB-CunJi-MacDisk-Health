@@ -41,7 +41,7 @@ It is an official SHIXIN LAB project by Shixin (`失心` / `ShiXinQvQ`). SHIXIN 
 - Chinese display name: `SHIXIN LAB · 「存迹」`
 - Subtitle: `MacDisk Health · SMART / NVMe`
 - Published app Bundle ID: `com.shixinqvq.shixinlab.diskhealth`
-- Current release: `0.3.0` (build `7`)
+- Current release: `0.3.0 Beta` (build `7`)
 - Minimum macOS: `15.0+`
 - Architecture: Apple Silicon / `arm64`
 
@@ -49,9 +49,9 @@ It is an official SHIXIN LAB project by Shixin (`失心` / `ShiXinQvQ`). SHIXIN 
 
 ## Download
 
-The current official release is `0.3.0` (build `7`).
+The current release is `0.3.0 Beta` (build `7`).
 
-- [Download the official v0.3.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
+- [Download the official v0.3.0 Beta DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
 - [Release notes and verification files](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.3.0)
 - [SHA-256 checksum manifest](SHA256SUMS.txt)
 - [Product page](https://shixinqvq.com/lab/macdisk/)
@@ -212,7 +212,7 @@ boundary, see [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md).
 
 ## Distribution Status
 
-Version `0.3.0` (build `7`) is the current formal release. GitHub Releases is the
+Version `0.3.0 Beta` (build `7`) is the current release. GitHub Releases is the
 versioned binary archive and checksum source; the SHIXIN LAB product page is the
 official product introduction and download entry. The local package script
 builds and validates release artifacts but never publishes them automatically.
@@ -248,15 +248,15 @@ Bundled third-party components keep their own licenses. In particular,
 - 中文展示名：`SHIXIN LAB · 「存迹」`
 - 副标题：`MacDisk Health · SMART / NVMe`
 - 已发布 App Bundle ID：`com.shixinqvq.shixinlab.diskhealth`
-- 当前发布版本：`0.3.0`（build `7`）
+- 当前发布版本：`0.3.0 Beta`（build `7`）
 - 最低系统：`macOS 15.0+`
 - 当前架构：Apple Silicon / `arm64`
 
 ## 下载
 
-当前正式版本为 `0.3.0`（build `7`）。
+当前版本为 `0.3.0 Beta`（build `7`）。
 
-- [下载官方 v0.3.0 DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
+- [下载官方 v0.3.0 Beta DMG](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/download/v0.3.0/SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg)
 - [查看版本说明与校验文件](https://github.com/ShiXinQvQ/SHIXIN-LAB-CunJi-MacDisk-Health/releases/tag/v0.3.0)
 - [SHA-256 校验清单](SHA256SUMS.txt)
 - [访问产品官网](https://shixinqvq.com/lab/macdisk/)
@@ -277,7 +277,7 @@ shasum -a 256 SHIXIN-LAB-CunJi-MacDisk-Health-v0.3.0.dmg
 Source code 压缩包是源码，不是可以直接安装的 App；普通用户应下载上面的
 `.dmg` 文件。
 
-当前 0.3.0 正式包使用 ad-hoc 本地签名。首次打开时 macOS 可能提示“无法验证开发者”。
+当前 0.3.0 Beta 安装包使用 ad-hoc 本地签名。首次打开时 macOS 可能提示“无法验证开发者”。
 
 ## 功能
 
@@ -290,7 +290,7 @@ Source code 压缩包是源码，不是可以直接安装的 App；普通用户�
 - 保存速度测试历史、趋势和 JSON / CSV 导出，记录目标卷身份，同时不保存用户自定义测试目录的完整路径。
 - 展示本机硬件配置，默认隐藏序列号、Provisioning UDID 和平台 UUID。
 - 提供英文、简体中文、日文界面资源。
-- 本地正式包内置 `smartmontools / smartctl`，并随包提供许可证说明。
+- 发行包内置 `smartmontools / smartctl`，并随包提供许可证说明。
 
 ## 安全边界
 
@@ -334,7 +334,7 @@ SMART 历史会在本机保存完整快照数据，方便后续查看。界面�
 
 ## 开源组件
 
-当前 0.3.0 正式包内置 `smartmontools / smartctl`：
+当前 0.3.0 Beta 发行包内置 `smartmontools / smartctl`：
 
 - 组件：`smartmontools / smartctl`
 - 捆绑版本：`smartctl 7.5`
@@ -406,7 +406,7 @@ Scripts/package-share.sh
 
 ## 分发状态
 
-`0.3.0`（build `7`）是当前正式版本。GitHub Releases 用于保存可下载的版本化
+`0.3.0 Beta`（build `7`）是当前发布版本。GitHub Releases 用于保存可下载的版本化
 安装包与校验值；SHIXIN LAB 产品页负责正式产品介绍与下载入口。本机打包脚本
 只负责生成和验证产物，不会自动上传或公开发布。
 
