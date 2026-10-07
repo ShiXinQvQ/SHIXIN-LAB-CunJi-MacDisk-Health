@@ -22,17 +22,43 @@ public enum SpeedTestSizeOption: String, Codable, CaseIterable, Identifiable, Se
 }
 
 public enum SpeedTestMode: String, Codable, CaseIterable, Identifiable, Sendable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case single = "单次"
     case continuous = "连续"
 
     public var id: String { rawValue }
+
+    public init(from decoder: Decoder) throws {
+        self = Self(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .single
+    }
+
+    public var title: String {
+        switch self {
+        case .single: "单次"
+        case .continuous: "连续"
+        }
+    }
 }
 
 public enum SpeedTestTargetKind: String, Codable, CaseIterable, Identifiable, Sendable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case defaultCacheDirectory = "默认临时目录"
     case userSelectedDirectory = "用户选择目录"
 
     public var id: String { rawValue }
+
+    public init(from decoder: Decoder) throws {
+        self = Self(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .userSelectedDirectory
+    }
+
+    public var title: String {
+        switch self {
+        case .defaultCacheDirectory: "默认临时目录"
+        case .userSelectedDirectory: "用户选择目录"
+        }
+    }
 }
 
 public enum SpeedTestPhase: String, Codable, CaseIterable, Identifiable, Sendable {
