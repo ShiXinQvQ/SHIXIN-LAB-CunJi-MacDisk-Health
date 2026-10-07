@@ -283,7 +283,7 @@ struct HealthOverviewCard: View {
                             .foregroundStyle(snapshot.healthLevel.accentColor)
                             .lineLimit(1)
                         StatusPill(
-                            text: snapshot.displayReadCompleteness.rawValue,
+                            text: snapshot.displayReadCompleteness.title,
                             systemImage: snapshot.displayReadCompleteness.symbolName,
                             tint: snapshot.displayReadCompleteness.accentColor
                         )
@@ -301,7 +301,7 @@ struct HealthOverviewCard: View {
                             StatusPill(text: L10n.t(kind.shortTitle), systemImage: kind.symbolName, tint: kind.tint)
                         }
                         StatusPill(
-                            text: snapshot.device.protocolName ?? snapshot.metrics.effectiveProtocolFamily.rawValue,
+                            text: snapshot.device.protocolName ?? snapshot.metrics.effectiveProtocolFamily.title,
                             systemImage: "cable.connector",
                             tint: .gray
                         )

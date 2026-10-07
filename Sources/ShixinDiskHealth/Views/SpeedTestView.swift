@@ -283,7 +283,7 @@ struct SpeedTestControlCard: View {
                 .lineLimit(1)
             Picker("模式", selection: $speedState.selectedMode) {
                 ForEach(SpeedTestMode.allCases) { mode in
-                    Text(L10n.t(mode.rawValue)).tag(mode)
+                    Text(L10n.t(mode.title)).tag(mode)
                 }
             }
             .labelsHidden()
@@ -582,7 +582,7 @@ struct SpeedResultRow: View {
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                 if let kind = result.targetConnectionKind {
-                    Text(L10n.t(kind.rawValue))
+                    Text(L10n.t(kind.title))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                         .lineLimit(1)
@@ -635,13 +635,13 @@ struct SpeedResultDetail: View {
                 }
 
                 KeyValueRow(title: "测试大小", value: SmartFormatting.sizeString(result.testSizeBytes))
-                KeyValueRow(title: "模式", value: result.mode.rawValue)
+                KeyValueRow(title: "模式", value: result.mode.title)
                 KeyValueRow(title: "写入耗时", value: SmartFormatting.seconds(result.writeDurationSeconds))
                 KeyValueRow(title: "读取耗时", value: SmartFormatting.seconds(result.readDurationSeconds))
                 KeyValueRow(title: "测试目录", value: result.targetDisplayName)
                 KeyValueRow(
                     title: "目标类型",
-                    value: result.targetConnectionKind.map { L10n.t($0.rawValue) } ?? L10n.t(result.targetKind.rawValue)
+                    value: result.targetConnectionKind.map { L10n.t($0.title) } ?? L10n.t(result.targetKind.title)
                 )
                 KeyValueRow(title: "卷名", value: result.volumeName ?? "未返回")
                 KeyValueRow(title: "测试前可用空间", value: SmartFormatting.sizeString(result.volumeAvailableBeforeBytes))

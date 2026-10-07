@@ -114,7 +114,7 @@ struct SmartctlSourceCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             SectionHeader(title: "smartctl 与读取来源", systemImage: "terminal")
-            KeyValueRow(title: "当前实际来源", value: appState.currentSnapshotForSelectedDisk?.readMode.rawValue ?? "尚未检测")
+            KeyValueRow(title: "当前实际来源", value: appState.currentSnapshotForSelectedDisk?.readMode.title ?? "尚未检测")
             if let path = appState.currentSnapshotForSelectedDisk?.smartctlPath {
                 CopyablePathRow(title: "当前路径", value: path)
             }

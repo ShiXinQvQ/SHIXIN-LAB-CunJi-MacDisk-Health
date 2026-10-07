@@ -105,7 +105,7 @@ final class SpeedTestAppState: ObservableObject {
             "默认临时目录（App 缓存）"
         case .userSelectedDirectory:
             if let selectedDiskTarget {
-                "\(selectedDiskTarget.displayName)（\(selectedDiskTarget.connectionKind.rawValue)）"
+                "\(selectedDiskTarget.displayName)（\(selectedDiskTarget.connectionKind.title)）"
             } else {
                 "\(currentTargetDisplayName)（用户选择目录）"
             }

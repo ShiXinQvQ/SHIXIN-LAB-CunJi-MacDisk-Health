@@ -58,7 +58,7 @@ struct DetailSectionsView: View {
             )
             KeyValueRow(
                 title: "连接",
-                value: snapshot.diskConnectionKind.map { L10n.t($0.rawValue) } ?? L10n.t("未返回"),
+                value: snapshot.diskConnectionKind.map { L10n.t($0.title) } ?? L10n.t("未返回"),
                 helpTitle: "Connection",
                 help: "区分内置硬盘、外置本地硬盘和网络卷。网络卷只能做普通文件测速，不能读取 SMART。"
             )
@@ -262,7 +262,7 @@ struct DetailSectionsView: View {
             }
             KeyValueRow(
                 title: "读取完整性",
-                value: snapshot.displayReadCompleteness.rawValue,
+                value: snapshot.displayReadCompleteness.title,
                 helpTitle: "Read Completeness",
                 help: "本 App 对 smartctl 读取结果的分层判断。核心健康字段可用时，即使附加错误日志明细无法读取，也不直接等同于硬盘故障。"
             )
@@ -360,7 +360,7 @@ struct DiagnosticCard: View {
         DetailCard(title: "读取诊断", systemImage: "stethoscope") {
             KeyValueRow(
                 title: "读取方式",
-                value: snapshot.readMode.rawValue,
+                value: snapshot.readMode.title,
                 helpTitle: "Read Source",
                 help: "本次读取 smartctl 的来源。正式 App 优先使用包内 smartctl；手动路径只作为普通 direct fallback，不会作为 root helper 的任意执行路径。"
             )
@@ -378,7 +378,7 @@ struct DiagnosticCard: View {
             )
             KeyValueRow(
                 title: "读取完整性",
-                value: snapshot.displayReadCompleteness.rawValue,
+                value: snapshot.displayReadCompleteness.title,
                 helpTitle: "Read Completeness",
                 help: "区分硬盘健康和读取范围。本 App 会优先确保当前协议的核心 SMART 字段可用，再把附加日志失败放入诊断层。"
             )

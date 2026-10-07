@@ -44,7 +44,7 @@ enum L10n {
         return nil
     }
 
-    private static let dynamicRules: [(pattern: String, localizationKey: String, chineseFallback: String)] = [
+    static let dynamicRules: [(pattern: String, localizationKey: String, chineseFallback: String)] = [
         (#"^NVMe Critical Warning 为 (-?\d+)，表示控制器报告了关键健康信号。$"#, "dynamic.health.nvme_warning", "NVMe Critical Warning 为 %@，表示控制器报告了关键健康信号。"),
         (#"^可用备用空间 (\d+)% 已达到或低于阈值 (\d+)% 。$"#, "dynamic.health.spare_risk", "可用备用空间 %@%% 已达到或低于阈值 %@%%。"),
         (#"^可用备用空间 (\d+)% 距阈值 (\d+)% 较近。$"#, "dynamic.health.spare_attention", "可用备用空间 %@%% 距阈值 %@%% 较近。"),

@@ -44,17 +44,39 @@ public enum HealthLevel: Hashable, Sendable, CaseIterable, Codable {
         }
     }
 
+    /// Written to snapshots.json. A storage format, not wording: never edit it.
+    /// Reword the interface through `title`.
+    var storedValue: String {
+        switch self {
+        case .healthy: "健康"
+        case .attention: "需要关注"
+        case .risk: "风险"
+        case .unknown: "无法判断"
+        }
+    }
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try container.encode(title)
+        try container.encode(storedValue)
     }
 }
 
 public enum ReadCompleteness: String, Codable, Sendable, CaseIterable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case complete = "完整读取"
     case coreCompleteSupplementalUnavailable = "核心数据已读取，附加日志不可用"
     case coreMissing = "核心字段缺失"
     case failed = "读取失败"
+
+    public var title: String {
+        switch self {
+        case .complete: "完整读取"
+        case .coreCompleteSupplementalUnavailable: "核心数据已读取，附加日志不可用"
+        case .coreMissing: "核心字段缺失"
+        case .failed: "读取失败"
+        }
+    }
 
     public var symbolName: String {
         switch self {
@@ -79,7 +101,19 @@ public enum ReadCompleteness: String, Codable, Sendable, CaseIterable {
     }
 }
 
+extension KeyedDecodingContainer {
+    /// `readCompleteness` is optional in a snapshot. An unrecognised stored
+    /// value decodes as missing, and the snapshot recomputes it from its
+    /// metrics, instead of making the whole history file unreadable.
+    public func decodeIfPresent(_ type: ReadCompleteness.Type, forKey key: Key) throws -> ReadCompleteness? {
+        guard let value = try decodeIfPresent(String.self, forKey: key) else { return nil }
+        return ReadCompleteness(rawValue: value)
+    }
+}
+
 public enum ReadMode: String, Codable, Sendable, CaseIterable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case bundled = "App 内置 smartctl"
     case homebrewAppleSilicon = "/opt/homebrew/bin/smartctl"
     case homebrewIntel = "/usr/local/bin/smartctl"
@@ -87,13 +121,44 @@ public enum ReadMode: String, Codable, Sendable, CaseIterable {
     case manual = "手动选择 smartctl"
     case privilegedHelper = "Privileged Helper"
     case unknown = "未知来源"
+
+    public init(from decoder: Decoder) throws {
+        self = Self(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .unknown
+    }
+
+    public var title: String {
+        switch self {
+        case .bundled: "App 内置 smartctl"
+        case .homebrewAppleSilicon: "/opt/homebrew/bin/smartctl"
+        case .homebrewIntel: "/usr/local/bin/smartctl"
+        case .path: "PATH 中的 smartctl"
+        case .manual: "手动选择 smartctl"
+        case .privilegedHelper: "Privileged Helper"
+        case .unknown: "未知来源"
+        }
+    }
 }
 
 public enum DiskConnectionKind: String, Codable, Sendable, CaseIterable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case internalPhysical = "内置本地硬盘"
     case externalPhysical = "外置本地硬盘"
     case networkVolume = "网络卷"
     case unknown = "未知"
+
+    public init(from decoder: Decoder) throws {
+        self = Self(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .unknown
+    }
+
+    public var title: String {
+        switch self {
+        case .internalPhysical: "内置本地硬盘"
+        case .externalPhysical: "外置本地硬盘"
+        case .networkVolume: "网络卷"
+        case .unknown: "未知"
+        }
+    }
 
     public var shortTitle: String {
         switch self {
@@ -160,10 +225,25 @@ public enum SmartctlDeviceType: String, Codable, Sendable, CaseIterable, Identif
 }
 
 public enum DiskProtocolFamily: String, Codable, Hashable, Sendable, CaseIterable {
+    // Raw values are written to the user's history files. They are a storage
+    // format, not wording: never edit them. Reword the interface through `title`.
     case nvme = "NVMe"
     case ata = "ATA / SATA"
     case scsi = "SCSI / SAS"
     case unknown = "SMART"
+
+    public init(from decoder: Decoder) throws {
+        self = Self(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .unknown
+    }
+
+    public var title: String {
+        switch self {
+        case .nvme: "NVMe"
+        case .ata: "ATA / SATA"
+        case .scsi: "SCSI / SAS"
+        case .unknown: "SMART"
+        }
+    }
 
     public static func infer(
         deviceType: String?,
